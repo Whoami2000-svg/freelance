@@ -102,7 +102,7 @@ def kill(message):
     if message.chat.id == ADMIN:
         KILL = 1
         bot.send_message(message.chat.id, 'Активирован режим "мгновенное убийство"\n/parser - режим парсинга.')
-        while len(get_new_offers()) == 0:
+        while len(get_new_offers()) == 0 and KILL == 1:
                 time.sleep(300)
         new_offers = get_new_offers()
         for i in new_offers:
