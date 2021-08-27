@@ -83,7 +83,11 @@ def parser(message):
                 else:
                     cost = str(cost.get("amount")) + cost.get("currency") 
                 text = 'Название проекта:    ' + name + '\n\nОписание проекта:    ' + description + '\n\nБюджет проекта:    ' + cost + '\n' + link
-                bot.send_message(message.chat.id, text)
+                try:
+                    bot.send_message(message.chat.id, text)
+                except:
+                    text = 'Название проекта:    ' + name + '\n\nОписание проекта:    ' + 'слишком длинное' + '\n\nБюджет проекта:    ' + cost + '\n' + link
+                    bot.send_message(message.chat.id, text)
             time.sleep(300) #ИСПРАВИТЬ
     else:
         keyboard = telebot.types.ReplyKeyboardMarkup()
@@ -114,7 +118,11 @@ def kill(message):
         text = 'Название проекта:    ' + name + '\n\nОписание проекта:    ' + description + '\n\nБюджет проекта:    ' + cost + '\n' + link
         keyboard = telebot.types.ReplyKeyboardMarkup()
         keyboard.row('Оставить ставку', 'Проигнорировать') 
-        bot.send_message(message.chat.id, text, reply_markup=keyboard)
+        try:
+            bot.send_message(message.chat.id, text)
+        except:
+            text = 'Название проекта:    ' + name + '\n\nОписание проекта:    ' + 'слишком длинное' + '\n\nБюджет проекта:    ' + cost + '\n' + link
+            bot.send_message(message.chat.id, text, reply_markup=keyboard)
         bot.register_next_step_handler(message, kill_message)   
     else:
         keyboard = telebot.types.ReplyKeyboardMarkup()
@@ -370,4 +378,5 @@ def bid_publication(message):
                 
 if __name__ == '__main__':
     bot.infinity_polling()
+
 
